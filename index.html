@@ -31,13 +31,13 @@
             <div class="col-md-4 mb-3">
                <div class="text-center withdraw-total p-3">
                     <h5>Withdraw</h5>
-                    <h1>$ <span id="total-withdraw">00</span></h1>
+                    <h1>$ <span id="current-withdraw">00</span></h1>
                </div>
             </div>
             <div class="col-md-4 mb-3">
                <div class="text-center balance-total p-3">
                     <h5>Balance</h5>
-                    <h1>$ <span id="total-balance">1000</span></h1>
+                    <h1>$ <span id="current-balance">1000</span></h1>
                </div>
             </div>
         </div>
@@ -45,14 +45,14 @@
             <div class="col-md-6 mb-3">
                 <div class="deposit p-5">
                     <h3 class="p-2 pb-4">Deposit</h3>
-                    <input type="text" placeholder="amount you want to withdraw" class="form-control" id="add-deposit"><br>
+                    <input type="number" placeholder="amount you want to withdraw" class="form-control" id="add-deposit"><br>
                     <button id="deposit-btn" class="font-weight-bold btn btn-success">Deposit</button>
                 </div>
             </div>
             <div class="col-md-6 ">
                 <div class="withdraw p-5">
                     <h3 class="p-2 pb-4">Withdraw</h3> 
-                    <input type="text" class="form-control" placeholder="amount you want to withdraw" name="number" id="add-withdraw"><br>
+                    <input type="number" class="form-control" placeholder="amount you want to withdraw" name="number" id="add-withdraw"><br>
                     <button id="withdraw-btn" class="font-weight-bold btn btn-success">Withdraw</button>
                 </div>
             </div>
@@ -61,25 +61,46 @@
     
     
     <script>
-       
+        //Login button setup
         const submit=document.getElementById('submit');
-       
         submit.addEventListener('click',()=>{
             const loginArea=document.getElementById('login');
             loginArea.style.display="none";
             const transactionArea=document.getElementById('transaction');
             transactionArea.style.display="block";
         });
+
+        //deposit and balance update system
         const depositBtn=document.getElementById('deposit-btn');
         depositBtn.addEventListener('click',function(){
-            const currentDeposit=document.getElementById('current-deposit').innerText;
-            const addDeposit=document.getElementById('add-deposit').value;
-            const depositNumber=parseFloat(addDeposit);
-            const currentDepositNumber=parseFloat(currentDeposit);
-            const totalDeposit=depositNumber+currentDepositNumber;
-            console.log(totalDeposit);
-            document.getElementById('current-deposit').innerText=totalDeposit;
-        })
+           update('add-deposit','current-deposit',1);
+           update('add-deposit','current-balance',1);
+           document.getElementById('add-deposit').value='';
+        });
+
+        //withdraw update system
+        const withdrawBtn=document.getElementById('withdraw-btn');
+        withdrawBtn.addEventListener('click',function(){
+            update('add-withdraw','current-withdraw',1);
+            update('add-withdraw','current-balance',-1);
+            document.getElementById('add-withdraw').value='';
+        });
+
+        //update function
+        function update(add,current,num){
+            let currentValue=document.getElementById(current).innerText;
+            let addValue=document.getElementById(add).value;
+            addValue=parseFloat(addValue);
+            currentValue=parseFloat(currentValue);
+            addValue=addValue*(num)
+            const total=addValue+currentValue;
+            if(addValue==''){
+                add=0;
+            }
+            document.getElementById(current).innerText=total;
+        }
+        var arr=['amar','sonar',40,60];
+        console.log(arr);
     </script>
 </body>
 </html>
