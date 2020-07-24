@@ -25,7 +25,7 @@
             <div class="col-md-4 mb-3">
                 <div class="text-center deposit-total p-3">
                     <h5>Deposit</h5>
-                    <h1>$00</h1>
+                    <h1>$<span id="current-deposit">00</span></h1>
                 </div>
             </div>
             <div class="col-md-4 mb-3">
@@ -37,7 +37,7 @@
             <div class="col-md-4 mb-3">
                <div class="text-center balance-total p-3">
                     <h5>Balance</h5>
-                    <h1>$1000</h1>
+                    <h1>$ <span id="total-balance">1000</span></h1>
                </div>
             </div>
         </div>
@@ -45,14 +45,14 @@
             <div class="col-md-6 mb-3">
                 <div class="deposit p-5">
                     <h3 class="p-2 pb-4">Deposit</h3>
-                    <input type="number" placeholder="amount you want to withdraw" class="form-control" id="deposit-amount"><br>
+                    <input type="text" placeholder="amount you want to withdraw" class="form-control" id="add-deposit"><br>
                     <button id="deposit-btn" class="font-weight-bold btn btn-success">Deposit</button>
                 </div>
             </div>
             <div class="col-md-6 ">
                 <div class="withdraw p-5">
                     <h3 class="p-2 pb-4">Withdraw</h3> 
-                    <input type="number" class="form-control" placeholder="amount you want to withdraw" name="number" id="withdraw-amount"><br>
+                    <input type="text" class="form-control" placeholder="amount you want to withdraw" name="number" id="add-withdraw"><br>
                     <button id="withdraw-btn" class="font-weight-bold btn btn-success">Withdraw</button>
                 </div>
             </div>
@@ -70,19 +70,16 @@
             const transactionArea=document.getElementById('transaction');
             transactionArea.style.display="block";
         });
-        const withdrawBtn=document.getElementById('withdraw-btn');
         const depositBtn=document.getElementById('deposit-btn');
-        var withdrawAmount=0;
-        var withdrawTotal=0;
-        withdrawBtn.addEventListener('click',()=>{
-            withdrawAmount=document.getElementById('withdraw-amount').value;
-            withdrawTotal=document.getElementById('total-withdraw').innerText;
-            
-            const withdrawAmountNumber=parseFloat(withdrawAmount);
-            const withdrawTotalNumber=parseFloat(withdrawTotal);
-            document.getElementById('total-withdraw').innerText= withdrawTotalNumber + withdrawAmountNumber;
-            
-        });
+        depositBtn.addEventListener('click',function(){
+            const currentDeposit=document.getElementById('current-deposit').innerText;
+            const addDeposit=document.getElementById('add-deposit').value;
+            const depositNumber=parseFloat(addDeposit);
+            const currentDepositNumber=parseFloat(currentDeposit);
+            const totalDeposit=depositNumber+currentDepositNumber;
+            console.log(totalDeposit);
+            document.getElementById('current-deposit').innerText=totalDeposit;
+        })
     </script>
 </body>
 </html>
